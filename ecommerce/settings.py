@@ -34,7 +34,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -215,11 +215,12 @@ SIMPLE_JWT = {
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME' : os.environ['CLOUD_NAME'],
-#     'API_KEY' : os.environ['CLOUD_API_KEY'],
-#     'API_SECRET' : os.environ['CLOUD_API_SECRET']
-# }
+if os.environ['ENVIRONMENT'] == "PRODUCTION":
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME' : os.environ['CLOUD_NAME'],
+        'API_KEY' : os.environ['CLOUD_API_KEY'],
+        'API_SECRET' : os.environ['CLOUD_API_SECRET']
+    }
 
 REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": (
@@ -246,11 +247,7 @@ if os.environ['ENVIRONMENT'] == "PRODUCTION":
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'https://django-api-test-frontend.vercel.app',
-    'https://www.devmaesters.com',
-    'https://django-api-test-frontend-git-dev-maesterzak.vercel.app',
-    'https://django-api-test-frontend-1hegslsvl-maesterzak.vercel.app'
+    f'{os.environ["FRONTEND_URL"]}'
 
 ]
 # Default primary key field type

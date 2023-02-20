@@ -62,7 +62,7 @@ def create_order(request):
 
 
 @api_view(['PATCH', 'GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def order(request, slug):
     
     print('nb', slug)
@@ -177,7 +177,7 @@ def product(request, slug):
 
 
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def rating(request):
     serializer = RatingSerializer(data=request.data)
   
@@ -189,7 +189,7 @@ def rating(request):
             {'data':serializer.data},
                                 status = status.HTTP_201_CREATED)
     else:
-        print("Ddd", serializer.errors)
+        
         return Response(
         status = status.HTTP_500_INTERNAL_SERVER_ERROR)                            
     
