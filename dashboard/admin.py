@@ -46,13 +46,17 @@ class OrderAdmin(admin.ModelAdmin):
         OrderItemsAdmin
     ]
     
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
+    exclude = ['slug']    
 
 
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem)
 admin.site.register(ProductImages)
 admin.site.register(Rating)
 admin.site.register(Attributes)
 admin.site.register(Customer)
+admin.site.register(ContactUs)

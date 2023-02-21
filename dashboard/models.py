@@ -12,6 +12,13 @@ class Category(models.Model):
     def __str__(self):
         return str(self.name)
 
+    def save(self, *args, **kwargs):
+        title = self.name.lower()
+        x = ['@', '#', '?', "/", ".", ",", "&", "!","|","-","_"]
+        z ="".join(filter(lambda char: char not in x, title)) 
+        self.slug = re.sub(r"\s+", '-', z)
+        super().save(*args, **kwargs)    
+
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=200, null=True)
@@ -37,6 +44,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True, related_name="category")
     description = models.TextField()
     stock = models.IntegerField()
+
     
 
     def __str__(self):
@@ -148,3 +156,23 @@ class OrderItem(models.Model):
     def get_total(self):
         total = self.product.price * self.quantity
         return total
+
+
+class ContactUs(models.Model):
+    name = models.CharField(max_length=300)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=50)
+    message = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.name)
+
+
+
+class NewsLetter(models.Model):
+    email = models.EmailField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.email)

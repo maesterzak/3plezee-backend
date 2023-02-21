@@ -3,6 +3,13 @@ from django.contrib.auth.models import User
 from .models import *
 
 
+
+class ContactUsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ContactUs
+        fields = "__all__"
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User

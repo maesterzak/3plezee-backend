@@ -19,7 +19,7 @@ def profile(request):
     if customer.user is None:
         customer.user = request.user
         customer.save()
-    print('nb', request.data)
+    
     if request.method == "PATCH":
         
         serializer = CustomerSerializer(customer, data=request.data, partial=True)
@@ -195,3 +195,17 @@ def rating(request):
     
 
 
+@api_view(['POST'])
+def contact_us(request):
+    serializer = ContactUsSerializer(data=request.data)
+  
+    if serializer.is_valid():
+
+        serializer.save()
+        return Response(
+            {'success': True},
+                                status = status.HTTP_201_CREATED)
+    else:
+        
+        return Response(
+        status = status.HTTP_500_INTERNAL_SERVER_ERROR)       
