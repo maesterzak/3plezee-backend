@@ -184,12 +184,12 @@ def rating(request):
     if serializer.is_valid():
 
         serializer.save()
-        product = Product()
+        
         return Response(
             {'data':serializer.data},
                                 status = status.HTTP_201_CREATED)
     else:
-        
+        print(serializer.errors)
         return Response(
         status = status.HTTP_500_INTERNAL_SERVER_ERROR)                            
     
