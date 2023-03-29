@@ -248,7 +248,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 CORS_ORIGIN_WHITELIST = [
     f'{os.environ["FRONTEND_URL"]}',
-    "https://6423c2e4c26b5b4bfecbe663--zingy-tulumba-994c89.netlify.app"
+    
+    "https://3plezee.netlify.app"
 
 ]
 # Default primary key field type
