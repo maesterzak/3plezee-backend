@@ -26,4 +26,6 @@ urlpatterns = [
 
     #contact us
     path('contact-us/', contact_us, name='contact_us'),
+    #search
+    path('search/', search, name='search')
 ]

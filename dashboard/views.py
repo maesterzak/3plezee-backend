@@ -49,7 +49,7 @@ def create_order(request):
     print("sdd", data)
     shipping_det = data['shipping_det']
     address = f"{shipping_det['address']} {shipping_det['city']} {shipping_det['state']}, {shipping_det['country']}"
-    order_id = f"3PZ{random.randint(111111, 91111111)}{customer.id}"
+    order_id = f"3PZ{customer.first_name}{random.randint(1, 9111)}"
     order = Order.objects.create(order_id=order_id, customer=customer, payment_method=data['payment_method'], shipping_address=address, postal_code=shipping_det['postal_code'], phone_number=shipping_det['phone_number'], total=data['total'], quantity=data['quantity'])
     for x in data['cart']:
         product = Product.objects.get(slug=x['slug'])
@@ -209,3 +209,25 @@ def contact_us(request):
         
         return Response(
         status = status.HTTP_500_INTERNAL_SERVER_ERROR)       
+
+
+@api_view(['POST'])
+def search(request):
+    
+    searchTerm = request.data["searchTerm"]
+#     {
+# "searchTerm":"Hills"
+# }
+  
+
+    products = Product.objects.filter(name__icontains=searchTerm)
+    print(products)
+    product= ProductSerializer(products, many=True, read_only=True)
+    # total = product.len
+    
+    return Response (
+        {
+            "results": product.data,
+            # "total": total
+        }
+    )
